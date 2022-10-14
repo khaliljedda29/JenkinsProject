@@ -2,7 +2,7 @@
 <a href="https://jenkins.io">
   <picture>
     <source width="400" media="(prefers-color-scheme: dark)" srcset="https://www.jenkins.io/images/jenkins-logo-title-dark.svg">
-    <img width="400" src="https://www.jenkins.io/images/jenkins-logo-title.svg">
+    <img width="400" src="https://www.jenkins.io/images/logos/jenkins/Jenkins-stop-the-war.svg">
   </picture>
 </a>
 
