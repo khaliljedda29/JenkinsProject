@@ -8,7 +8,17 @@ pipeline{
             }
         
         stages{
-
+              stage('Test') {
+                          steps {
+                              sh './gradlew check'
+                          }
+                      }
+                  }
+                  post {
+                      always {
+                          junit 'build/reports/**/*.xml'
+                      }
+                  }
               stage('Quality Gate Status Check'){
                   steps{
                       script{
@@ -25,7 +35,8 @@ pipeline{
 		  
                  	}
                	 }  
-              }	
+              }
+
 		
             }	       	     	         
 }

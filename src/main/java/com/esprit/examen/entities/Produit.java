@@ -45,8 +45,11 @@ public class Produit implements Serializable {
 	@ManyToOne
 	@JsonIgnore
 	private CategorieProduit categorieProduit;
-	
 
+	public Produit() {
+		super();
+		this.idProduit = idProduit;
+	}
 
 	
 
