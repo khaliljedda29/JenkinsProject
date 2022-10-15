@@ -45,12 +45,12 @@ public class ProduitRestController {
 	@PostMapping("/add-produit")
 	@ResponseBody
 	public ResponseEntity<ProduitDto> addProduit(@RequestBody ProduitDto produitDto) {
-		Produit produitRequest = modelMapper.map(produitDto, Produit.class);
+		var produitRequest = modelMapper.map(produitDto, Produit.class);
 
-		Produit post = produitService.addProduit(produitRequest);
+		var produit = produitService.addProduit(produitRequest);
 
 		// convert entity to DTO
-		ProduitDto produitResponse = modelMapper.map(post, ProduitDto.class);
+		ProduitDto produitResponse = modelMapper.map(produit, ProduitDto.class);
 
 		return new ResponseEntity<>(produitResponse, HttpStatus.CREATED);
 	}
@@ -66,9 +66,9 @@ public class ProduitRestController {
 	@PutMapping("/modify-produit")
 	@ResponseBody
 	public ResponseEntity<ProduitDto> updateProduit(@RequestBody ProduitDto produitDto) {
-		Produit produitRequest = modelMapper.map(produitDto, Produit.class);
+		var produitRequest = modelMapper.map(produitDto, Produit.class);
 
-		Produit produit = produitService.updateProduit(produitRequest);
+		var produit = produitService.updateProduit(produitRequest);
 
 		// entity to DTO
 		ProduitDto produitResponse = modelMapper.map(produit, ProduitDto.class);
