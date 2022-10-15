@@ -18,6 +18,8 @@ import com.esprit.examen.repositories.OperateurRepository;
 import com.esprit.examen.repositories.ProduitRepository;
 import lombok.extern.slf4j.Slf4j;
 
+import static org.hibernate.internal.CoreLogging.logger;
+
 @Service
 @Slf4j
 @Transactional
@@ -100,6 +102,10 @@ public class FactureServiceImpl implements IFactureService {
 	@Override
 	public List<Facture> getFacturesByFournisseur(Long idFournisseur) {
 		Fournisseur fournisseur = fournisseurRepository.findById(idFournisseur).orElse(null);
+		if (fournisseur ==null){
+			logger("fournisseur NULL !");
+			throw new NullPointerException();
+		}
 		return (List<Facture>) fournisseur.getFactures();
 	}
 
@@ -107,6 +113,10 @@ public class FactureServiceImpl implements IFactureService {
 	public void assignOperateurToFacture(Long idOperateur, Long idFacture) {
 		Facture facture = factureRepository.findById(idFacture).orElse(null);
 		Operateur operateur = operateurRepository.findById(idOperateur).orElse(null);
+		if (operateur ==null){
+			logger("operateur NULL !");
+			throw new NullPointerException();
+		}
 		operateur.getFactures().add(facture);
 		operateurRepository.save(operateur);
 	}
