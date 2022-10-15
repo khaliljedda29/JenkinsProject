@@ -33,8 +33,8 @@ public class ReglementRestController {
     @GetMapping("/retrieve-all-reglements")
     @ResponseBody
     public List<Reglement> getReglement() {
-        List<Reglement> list;
-        return list= reglementService.retrieveAllReglements();
+        List<Reglement> list= reglementService.retrieveAllReglements();
+        return list;
     }
 
     // http://localhost:8089/SpringMVC/reglement/retrieve-reglement/8
