@@ -16,6 +16,8 @@ import com.esprit.examen.repositories.ProduitRepository;
 import com.esprit.examen.repositories.SecteurActiviteRepository;
 import lombok.extern.slf4j.Slf4j;
 
+import static org.hibernate.internal.CoreLogging.logger;
+
 @Service
 @Slf4j
 public class FournisseurServiceImpl implements IFournisseurService {
@@ -77,6 +79,10 @@ public class FournisseurServiceImpl implements IFournisseurService {
 	@Override
 	public void assignSecteurActiviteToFournisseur(Long idSecteurActivite, Long idFournisseur) {
 		Fournisseur fournisseur = fournisseurRepository.findById(idFournisseur).orElse(null);
+		if (fournisseur ==null){
+			logger("fournisseur NULL !");
+			throw new NullPointerException();
+		}
 		SecteurActivite secteurActivite = secteurActiviteRepository.findById(idSecteurActivite).orElse(null);
         fournisseur.getSecteurActivites().add(secteurActivite);
         fournisseurRepository.save(fournisseur);
