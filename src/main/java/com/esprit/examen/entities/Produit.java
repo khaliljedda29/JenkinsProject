@@ -46,10 +46,6 @@ public class Produit implements Serializable {
 	@JsonIgnore
 	private CategorieProduit categorieProduit;
 
-	public Produit() {
-		super();
-		this.idProduit = idProduit;
-	}
 
 	
 
