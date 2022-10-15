@@ -8,12 +8,6 @@ pipeline{
             }
         
         stages{
-              stage('Test') {
-                          steps {
-                              sh './gradlew check'
-                          }
-              }
-
               stage('Quality Gate Status Check'){
                   steps{
                       script{
@@ -31,7 +25,11 @@ pipeline{
                  	}
                	 }  
               }
-
+        stage('Test') {
+                                  steps {
+                                      sh './gradlew check'
+                                  }
+                      }
 		
         }
       }
