@@ -70,8 +70,8 @@ public class FournisseurServiceImpl implements IFournisseurService {
 	@Override
 	public Fournisseur retrieveFournisseur(Long fournisseurId) {
 
-		Fournisseur fournisseur = fournisseurRepository.findById(fournisseurId).orElse(null);
-		return fournisseur;
+		Fournisseur fournisseur;
+		return fournisseur = fournisseurRepository.findById(fournisseurId).orElse(null);
 	}
 
 	@Override
