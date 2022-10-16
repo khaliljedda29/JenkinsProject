@@ -12,7 +12,7 @@ pipeline{
               stage('Quality Gate Status Check'){
                   steps{
                       script{
-			      withSonarQubeEnv('sonarserver') { 
+			      withSonarQubeEnv('sonar') {
 			      sh "mvn compile sonar:sonar"
                        	     	}
 			      timeout(time: 1, unit: 'HOURS') {
@@ -27,5 +27,16 @@ pipeline{
                	 }  
               }	
 		
-            }	       	     	         
+            }
+           stage('test'){
+               steps {
+                  sh './mvnw test'
+
+           }
+           post{
+           always{
+           junit '**/target/surefire-report/TEST-*.xml'
+           }
+           }
+           }
 }
