@@ -6,7 +6,7 @@ pipeline{
 
                 }
             }
-        
+
         stages{
 
               stage('Quality Gate Status Check'){
@@ -22,21 +22,20 @@ pipeline{
 				      }
                     		}
 		    	    sh "mvn clean install"
-		  
-                 	}
-               	 }  
-              }	
-		
-            }
-           stage('test'){
-               steps {
-                  sh './mvnw test'
 
-           }
-           post{
-           always{
-           junit '**/target/surefire-report/TEST-*.xml'
-           }
-           }
-           }
+                 	}
+               	 }
+              }
+             stage('test'){
+                            steps {
+                               sh './mvnw test'
+
+                        }
+                        post{
+                        always{
+                        junit '**/target/surefire-report/TEST-*.xml'
+                        }
+                        }
+                        }
+}
 }
