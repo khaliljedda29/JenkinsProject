@@ -43,19 +43,19 @@ stage("Publish to Nexus Repository Manager") {
                     if(artifactExists) {
                         echo "*** File: ${artifactPath}, group: ${pom.groupId}, packaging: ${pom.packaging}, version ${pom.version}";
                         nexusArtifactUploader(
-                            nexusVersion: "nexus3",
-                            protocol: "http",
-                            nexusUrl: "192.168.1.20:8081",
-                            groupId: pom.com.esprit.examen,
-                            version: pom.1.0,
-                            repository: "maven_releases",
-                            credentialsId: "2fd3467b-89cc-4b7a-ace8-756b02941c0f",
+                            nexusVersion: 'nexus3',
+                            protocol: 'http',
+                            nexusUrl: '192.168.1.20:8081',
+                            groupId: 'pom.com.esprit.examen',
+                            version: 'pom.1.0',
+                            repository: 'maven_releases',
+                            credentialsId: '2fd3467b-89cc-4b7a-ace8-756b02941c0f',
                             artifacts: [
-                                [artifactId: pom.tpAchatProject,
+                                [artifactId: 'pom.tpAchatProject',
                                 classifier: '',
                                 file: artifactPath,
                                 type: pom.packaging],
-                                [artifactId: pom.tpAchatProject,
+                                [artifactId: 'pom.tpAchatProject',
                                 classifier: '',
                                 file: "pom.xml",
                                 type: "pom"]
