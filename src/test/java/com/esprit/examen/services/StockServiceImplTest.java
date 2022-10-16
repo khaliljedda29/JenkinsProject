@@ -48,5 +48,4 @@ public class StockServiceImplTest {
 		assertNull(stockService.retrieveStock(savedStock.getIdStock()));
 	}
 
-}
-*/
+}*/

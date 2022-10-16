@@ -19,7 +19,7 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-
+@Builder
 public class Produit implements Serializable {
 
 	/**
@@ -46,13 +46,7 @@ public class Produit implements Serializable {
 	@JsonIgnore
 	private CategorieProduit categorieProduit;
 
-	public Produit(Long idProduit, String codeProduit, String libelleProduit , float prix) {
-		super();
-		this.idProduit = idProduit;
-		this.codeProduit = codeProduit;
-		this.libelleProduit = libelleProduit;
-		this.prix = prix;
-	}
+
 
 	
 

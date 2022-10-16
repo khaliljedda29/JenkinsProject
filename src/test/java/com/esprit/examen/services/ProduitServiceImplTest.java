@@ -6,6 +6,8 @@ import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import static org.junit.Assert.assertNotNull;
+
 public class ProduitServiceImplTest {
 
     @Autowired
@@ -13,11 +15,7 @@ public class ProduitServiceImplTest {
 
     @Test
     public void addProduitTest(){
-        Produit p = new Produit(1L,"xx","xx", 3.5F);
-        Produit produit = produitService.addProduit(p);
-        /*assertNotNull(produit.getIdProduit());
-        assertNotNull(produit.getCodeProduit());
-        assertNotNull(produit.getLibelleProduit());
-        assertNotNull(produit.getPrix());*/
+        Produit p= produitService.addProduit(Produit.builder().libelleProduit("produit test").codeProduit("produit test").prix(10).build());
+        //assertNotNull(p);
     }
 }
