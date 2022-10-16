@@ -32,6 +32,13 @@ pipeline{
                  	}
                	 }  
               }
+		stage("Maven Build") {
+            steps {
+                script {
+                    sh "mvn package -DskipTests=true"
+                }
+            }
+        }
 stage("Publish to Nexus Repository Manager") {
             steps {
                 script {
