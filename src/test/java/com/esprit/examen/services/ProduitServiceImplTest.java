@@ -14,7 +14,7 @@ public class ProduitServiceImplTest {
     @Test
     public void addProduitTest(){
         Produit p = new Produit(1L,"xx","xx", 3.5F);
-        /*Produit produit = produitService.addProduit(p);*/
+        Produit produit = produitService.addProduit(p);
         /*assertNotNull(produit.getIdProduit());
         assertNotNull(produit.getCodeProduit());
         assertNotNull(produit.getLibelleProduit());
