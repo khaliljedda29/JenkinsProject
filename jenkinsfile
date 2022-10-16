@@ -9,7 +9,7 @@ pipeline{
 
         stages{
 
-             stage('Quality Gate Status Check'){
+              stage('Quality Gate Status Check'){
                   steps{
                       script{
 			      withSonarQubeEnv('sonar') {
@@ -26,17 +26,7 @@ pipeline{
                  	}
                	 }
               }
-	    /*  stage('test'){
-               steps {
-                  sh './mvnw test'
 
-           }
-           post{
-           always{
-junit '**/target/surefire-report/TEST-*.xml'
-           }
-           }
-           }*/
+            }
 
-}
 }
