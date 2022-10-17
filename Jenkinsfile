@@ -44,7 +44,7 @@ pipeline{
                 }
             }
         }
-stage("Publish to Nexus Repository Manager") {
+            stage("Publish to Nexus Repository Manager") {
             steps {
                 script {
                     pom = readMavenPom file: "pom.xml";
@@ -80,7 +80,20 @@ stage("Publish to Nexus Repository Manager") {
             }
         }
 
-
+ post {
+        success {
+             mail to: "youssef.skhiri@esprit.tn",
+                    subject: "Build sucess",
+                    body: "sucess"
+            echo 'successful'
+        }
+        failure {
+             mail to: "youssef.skhiri@esprit.tn",
+                    subject: "Build failed",
+                    body: "failed"
+            echo 'failed'
         }
       }
+        }
+        }
 
