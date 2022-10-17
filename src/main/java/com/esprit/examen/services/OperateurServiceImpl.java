@@ -18,7 +18,7 @@ public class OperateurServiceImpl implements IOperateurService {
 	}
 
 	@Override
-	public static Operateur addOperateur(Operateur o) {
+	public Operateur addOperateur(Operateur o) {
 		operateurRepository.save(o);
 		return o;
 	}
@@ -26,18 +26,19 @@ public class OperateurServiceImpl implements IOperateurService {
 	@Override
 	public void deleteOperateur(Long id) {
 		operateurRepository.deleteById(id);
-		
+
 	}
 
 	@Override
 	public Operateur updateOperateur(Operateur o) {
-		return operateurRepository.save(o);
-
+		operateurRepository.save(o);
+		return o;
 	}
 
 	@Override
 	public Operateur retrieveOperateur(Long id) {
-		 return operateurRepository.findById(id).orElse(null);
+		Operateur operateur = operateurRepository.findById(id).orElse(null);
+		return operateur;
 	}
 
 }

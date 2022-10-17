@@ -35,6 +35,8 @@ public class Operateur implements Serializable{
 	@JsonIgnore
 	private Set<Facture> factures;
 
-	public Operateur(String stock_test, String stock_test1, int i) {
+
+	public Operateur(String test, String test1) {
+
 	}
 }
