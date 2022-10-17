@@ -26,7 +26,7 @@ public class OperateurServiceImplTest {
 
         //	assertEquals(expected+1, stockService.retrieveAllStocks().size());
         assertNotNull(savedOperateur.getNom());
-        operateurService.deleteOperateur(savedOperateur.getIdOperateur());
+         operateurService.deleteOperateur(savedOperateur.getIdOperateur());
 
     }
 
