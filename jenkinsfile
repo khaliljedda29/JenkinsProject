@@ -4,18 +4,19 @@ pipeline {
     environment {
         NEXUS_VERSION = "nexus3"
         NEXUS_PROTOCOL = "http"
-        NEXUS_URL = "192.168.1.155:8081"
+        NEXUS_URL = "172.16.1.215:8081"
         NEXUS_REPOSITORY = "maven-nexus-repo"
-        NEXUS_CREDENTIAL_ID = "token3"
+        NEXUS_CREDENTIAL_ID = "nexus"
     }
 
+	
     stages {
         stage('Pull GIT') {
             steps {
                 echo 'Pulling...';
-                  git branch: 'master',
-                  url : 'https://github.com/chamsBLT/ci_project-spring.git',
-                  credentialsId: 'token';
+                  git branch: 'Backand_NF',
+                  url : 'https://github.com/rchouda/JenkinsProject.git',
+                
             }
         }
         
@@ -26,27 +27,28 @@ pipeline {
                 
             }
         }
+
+  stage('Test') {
+            steps {
+                sh "./mvnw test"  
+           } 
+           
+        }
+        
+         
         
         stage('SonarQube analysis') {
             steps {
-              withSonarQubeEnv (installationName:'SonarQube'){
-              sh """./mvnw sonar:sonar \
-  -Dsonar.projectKey=chams-eddine-balti \
-  -Dsonar.host.url=http://192.168.1.155:9000"""
-                
+              withSonarQubeEnv (installationName:'sonar'){
+              sh """./mvnw sonar:sonar \ 
+   -Dsonar.projectKey=sonar \
+  -Dsonar.host.url=http://172.16.1.215:9000 \
+  -Dsonar.login=22d9f3d0e9ff3ac4b75ff30b2ef386319899db62 """ 
+    
+               
        }
-    } 
-	}	
-		
-                 stage("Send Mail") {
-			 steps{
-          script {
-          mail bcc: '', body: '''Hello User the build of your project successed.
-            Jenkins.''', cc: '', from: '', replyTo: '', subject: 'Build succed', to: 'aous.benelhedi@esprit.tn'
-	  }
-	 }
-		 }
-
+    }   
+}
 
 stage("Publish to Nexus Repository Manager") {
             steps {
@@ -57,7 +59,7 @@ stage("Publish to Nexus Repository Manager") {
                     artifactPath = filesByGlob[0].path;
                     artifactExists = fileExists artifactPath;
                     if(artifactExists) {
-                        echo "*** File: ${artifactPath}, group: ${pom.groupId}, packaging: ${pom.packaging}, version ${pom.version}";
+                        echo "* File: ${artifactPath}, group: ${pom.groupId}, packaging: ${pom.packaging}, version ${pom.version}";
                         nexusArtifactUploader(
                             nexusVersion: NEXUS_VERSION,
                             protocol: NEXUS_PROTOCOL,
@@ -78,7 +80,7 @@ stage("Publish to Nexus Repository Manager") {
                             ]
                         );
                     } else {
-                        error "*** File: ${artifactPath}, could not be found";
+                        error "* File: ${artifactPath}, could not be found";
                     }
                 }
             }
