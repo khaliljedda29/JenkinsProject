@@ -82,4 +82,18 @@ stage("Publish to Nexus Repository Manager") {
 
 
         }
+        post {
+                        success {
+                             mail to: "mohamedelhedi.benaissa@esprit.tn",
+                                    subject: "Build sucess",
+                                    body: "sucess"
+                            echo 'successful'
+                        }
+                        failure {
+                             mail to: "mohamedelhedi.benaissa@esprit.tn",
+                                    subject: "Build failed",
+                                    body: "failed"
+                            echo 'failed'
+                        }
+                      }
       }
