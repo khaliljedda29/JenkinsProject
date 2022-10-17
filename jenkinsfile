@@ -26,11 +26,11 @@ pipeline{
                  	}
                	 }
               }
-	      stage('testing'){
+	      stage('test'){
                steps {
 
-  sh "./mvnw test"
-                                  junit '*/target/surefire-reports/TEST-.xml'
+
+                sh "mvn clean test"
 
            }
 
