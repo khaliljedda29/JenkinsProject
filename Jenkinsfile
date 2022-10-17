@@ -57,11 +57,11 @@ stage("Publish to Nexus Repository Manager") {
                         nexusArtifactUploader(
                             nexusVersion: 'nexus3',
                             protocol: 'http',
-                            nexusUrl: '192.168.1.27:8081',
+                            nexusUrl: '192.168.33.10:8081',
                             groupId: 'pom.com.esprit.examen',
                             version: 'pom.1.0',
                             repository: 'maven-releases',
-                            credentialsId: '2fd3467b-89cc-4b7a-ace8-756b02941c0f',
+                            credentialsId: 'nexus',
                             artifacts: [
                                 [artifactId: 'pom.tpAchatProject',
                                 classifier: '',
