@@ -18,7 +18,7 @@ public class OperateurServiceImpl implements IOperateurService {
 	}
 
 	@Override
-	public Operateur addOperateur(Operateur o) {
+	public static Operateur addOperateur(Operateur o) {
 		operateurRepository.save(o);
 		return o;
 	}
