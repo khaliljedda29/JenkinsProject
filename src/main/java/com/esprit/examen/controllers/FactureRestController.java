@@ -1,14 +1,17 @@
 package com.esprit.examen.controllers;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.esprit.examen.entities.Facture;
-import com.esprit.examen.services.IFactureService;
 
+
+import com.esprit.examen.entities.Facture;
+import com.esprit.examen.entities.PostDto;
+import com.esprit.examen.services.IFactureService;
+import org.modelmapper.ModelMapper;
 import io.swagger.annotations.Api;
 
 
@@ -20,13 +23,20 @@ public class FactureRestController {
 
     @Autowired
     IFactureService factureService;
+    @Autowired
+    private ModelMapper modelMapper;
+	
+    public FactureRestController(IFactureService factureService) {
+		super();
+		this.factureService = factureService;
+	}
 
     // http://localhost:8089/SpringMVC/facture/retrieve-all-factures
     @GetMapping("/retrieve-all-factures")
     @ResponseBody
     public List<Facture> getFactures() {
-        List<Facture> list = factureService.retrieveAllFactures();
-        return list;
+    	return factureService.retrieveAllFactures();
+        
     }
 
     // http://localhost:8089/SpringMVC/facture/retrieve-facture/8
@@ -36,48 +46,37 @@ public class FactureRestController {
         return factureService.retrieveFacture(factureId);
     }
 
-    // http://localhost:8089/SpringMVC/facture/add-facture/{fournisseur-id}
     @PostMapping("/add-facture")
     @ResponseBody
-    public Facture addFacture(@RequestBody Facture f) {
-        Facture facture = factureService.addFacture(f);
-        return facture;
+    public ResponseEntity<PostDto> addFacture(@RequestBody PostDto f) {
+		Facture op = modelMapper.map(f, Facture.class);
+		Facture facture = factureService.addFacture(op);
+		PostDto factureResponse = modelMapper.map(facture, PostDto.class);
+		return new ResponseEntity<>(factureResponse, HttpStatus.CREATED);
     }
 
     /*
      * une facture peut etre annulé si elle a été saisie par erreur Pour ce
      * faire, il suffit de mettre le champs active à false
      */
-    // http://localhost:8089/SpringMVC/facture/cancel-facture/{facture-id}
+  
     @PutMapping("/cancel-facture/{facture-id}")
     @ResponseBody
-    public void cancelFacture(@PathVariable("facture-id") Long factureId) {
-        factureService.cancelFacture(factureId);
+    public void deleteFacture(@PathVariable("facture-id") Long factureId) {
+        factureService.deleteFacture(factureId);
     }
 
-    // http://localhost:8089/SpringMVC/facture/getFactureByFournisseur/{fournisseur-id}
-    @GetMapping("/getFactureByFournisseur/{fournisseur-id}")
-    @ResponseBody
-    public List<Facture> getFactureByFournisseur(@PathVariable("fournisseur-id") Long fournisseurId) {
-        return factureService.getFacturesByFournisseur(fournisseurId);
+
+	// http://localhost:8089/SpringMVC/operateur/modify-operateur
+	@PutMapping("/modify-facture")
+	@ResponseBody
+	public ResponseEntity<PostDto> modifyOperateur(@RequestBody PostDto f) {
+		
+		Facture op = modelMapper.map(f, Facture.class);
+		Facture facture = factureService.addFacture(op);
+		PostDto factureResponse = modelMapper.map(facture, PostDto.class);
+		return new ResponseEntity<>(factureResponse, HttpStatus.ACCEPTED);
+	}
+
     }
 
-    // http://localhost:8089/SpringMVC/facture/assignOperateurToFacture/1/1
-    @PutMapping(value = "/assignOperateurToFacture/{idOperateur}/{idFacture}")
-    public void assignOperateurToFacture(@PathVariable("idOperateur") Long idOperateur, @PathVariable("idFacture") Long idFacture) {
-        factureService.assignOperateurToFacture(idOperateur, idFacture);
-    }
-
-    // http://localhost:8089/SpringMVC/facture/pourcentageRecouvrement/{startDate}/{endDate}
-    @GetMapping(value = "/pourcentageRecouvrement/{startDate}/{endDate}")
-    public float pourcentageRecouvrement(
-            @PathVariable(name = "startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date startDate,
-            @PathVariable(name = "endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date endDate) {
-        try {
-            return factureService.pourcentageRecouvrement(startDate, endDate);
-        } catch (Exception e) {
-            return 0;
-        }
-    }
-
-}
