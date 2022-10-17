@@ -4,10 +4,15 @@ import static org.junit.Assert.*;
 import java.util.List;
 
 import com.esprit.examen.entities.SecteurActivite;
+import com.esprit.examen.repositories.SecteurActiviteRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.core.annotation.Order;
 import org.springframework.test.context.junit4.SpringRunner;
 import com.esprit.examen.entities.Stock;
 
@@ -17,37 +22,33 @@ public class SecteurActiviteServiceImplTest {
     @Autowired
     ISecteurActiviteService secteurActiviteService;
 
-    @Test
+    @Mock
+    SecteurActiviteRepository secteurActiviteRepository;
+
+    @InjectMocks
+    SecteurActiviteServiceImpl secteurActiviteServicemock;
+
+   @Test
     public void testAddStock() {
-        //	List<Stock> stocks = stockService.retrieveAllStocks();
-        //	int expected=stocks.size();
         SecteurActivite s = new SecteurActivite("test","test");
         SecteurActivite savedSecteurActivite= secteurActiviteService.addSecteurActivite(s);
-
-        //	assertEquals(expected+1, stockService.retrieveAllStocks().size());
         assertNotNull(savedSecteurActivite.getLibelleSecteurActivite());
-        secteurActiviteService.deleteSecteurActivite(savedSecteurActivite.getIdSecteurActivite());
-
     }
-
-    /*@Test
-    public void testAddStockOptimized() {
-
-        Stock s = new Stock("stock test",10,100);
-        Stock savedStock= stockService.addStock(s);
-        assertNotNull(savedStock.getIdStock());
-        assertSame(10, savedStock.getQte());
-        assertTrue(savedStock.getQteMin()>0);
-        stockService.deleteStock(savedStock.getIdStock());
-
-    }
-
     @Test
-    public void testDeleteStock() {
-        Stock s = new Stock("stock test",30,60);
-        Stock savedStock= stockService.addStock(s);
-        stockService.deleteStock(savedStock.getIdStock());
-        assertNull(stockService.retrieveStock(savedStock.getIdStock()));
-    }*/
+    public void testMajVerif() {
+        for (SecteurActivite s : secteurActiviteService.retrieveAllSecteurActivite())
+        {
+            assertEquals(s.getCodeSecteurActivite().substring(0,1),"t");
+        }
+    }
+   @Test
+    public void testAddSecteurActiviteMock() {
+        SecteurActivite secteurActivite = new SecteurActivite("test", "test");
+        Mockito.when(this.secteurActiviteRepository.save(Mockito.any())).thenReturn(secteurActivite);
+        SecteurActivite savedSecteurActivite = secteurActiviteServicemock.addSecteurActivite(secteurActivite);
+        assertNotNull(savedSecteurActivite.getLibelleSecteurActivite());
+    }
+
+
 
 }
