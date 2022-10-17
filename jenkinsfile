@@ -15,7 +15,7 @@ pipeline {
             steps {
                 echo 'Pulling...';
                   git branch: 'Backand_NF',
-                  url : 'https://github.com/rchouda/JenkinsProject.git',
+                  url : 'https://github.com/rchouda/JenkinsProject.git;
                 
             }
         }
