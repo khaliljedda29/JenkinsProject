@@ -85,8 +85,8 @@ stage("Publish to Nexus Repository Manager") {
         post {
                         success {
                              mail to: "mohamedelhedi.benaissa@esprit.tn",
-                                    subject: "Build sucess",
-                                    body: "sucess"
+                                    subject: "Build successfull",
+                                    body: "Hello Mohamed El Hedi, this is a Jenkins Pipeline alert for launching Cycle"
                             echo 'successful'
                         }
                         failure {
