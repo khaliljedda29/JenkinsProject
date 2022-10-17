@@ -1,4 +1,4 @@
-/*package com.esprit.examen.services;
+package com.esprit.examen.services;
 import static org.junit.Assert.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -33,4 +33,4 @@ public class ReglementServiceImplTest {
         List<Reglement> listReglements = rs.retrieveAllReglements();
         Assertions.assertEquals(10, listReglements.size());
     }
-}*/
+}

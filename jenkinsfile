@@ -26,7 +26,18 @@ pipeline{
                  	}
                	 }
               }
+	      stage('test'){
+               steps {
+                  sh './mvnw test'
 
-            }
+           }
+           post{
+           always{
+           sh 'make check || true'
+                junit '**/target/*.xml'
+           }
+           }
+           }
 
+}
 }
