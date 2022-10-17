@@ -76,7 +76,7 @@ class  ReglementMockTest {
 
     @DisplayName("Retrieving reglement...!")
     @Test
-    void GetProductTest() {
+    void GetReglementTest() {
 
         List<Reglement> lst = new ArrayList<>();
         lst.add(new Reglement());
@@ -99,43 +99,25 @@ class  ReglementMockTest {
         verify(pr).findById(Mockito.anyLong());
 
     }
-
-  /*  @DisplayName("Updating reglement...!")
-    @Test
-    void EditReglementTest() {
-        Reglement pedit = new Reglement();
-        pedit.setIdReglement(3L);
-        pedit.setPayee(false);
-
-        Reglement new_pedit = new Reglement();
-        new_pedit.setPayee(true);
-
-        Mockito.lenient().when(pr.findById(pedit.getIdReglement())).thenReturn(Optional.of(pedit));
-        //assertEquals(pedit, psi.updateProduit(new_pedit) );
-        pedit = psi.updateReglement(new_pedit);
-        log.info("updated ==> " + pedit.toString());
-        verify(pr).save(pedit);
-    }
-
     @DisplayName("Adding reglement...!")
     @Test
-    void AddProductTest() {
+    void AddReglementTest() {
 
-        Produit produit = new Produit();
-        produit.setLibelleProduit("arctic");
-        Mockito.lenient().when(pr.save(produit)).thenReturn(produit);
-        Produit newp = psi.addProduit(produit);
-        assertEquals(produit.getLibelleProduit(), newp.getLibelleProduit());
-        verify(pr).save(produit);
-        log.info("Added ==> " + produit.toString());
+        Reglement reglement = new Reglement();
+        reglement.setPayee(true);
+        Mockito.lenient().when(pr.save(reglement)).thenReturn(reglement);
+        Reglement newp = psi.addReglement(reglement);
+        assertEquals(reglement.getPayee(), newp.getPayee());
+        verify(pr).save(reglement);
+        log.info("Added ==> " + reglement.toString());
+        System.out.println("add works !");
+
     }
-
-
-    @DisplayName("Deleting product...!")
+  /*  @DisplayName("Deleting reglement...!")
     @Test
     void DeleteTest() {
-        Produit p = new Produit();
-        p.setLibelleProduit("libelle");
+        Reglement p = new Reglement();
+        p.setPayee(true);
         p.setIdProduit((long) 3);
         Long pid = p.getIdProduit();
         Mockito.lenient().when(pr.findById(pid)).thenReturn(Optional.of(p));
@@ -143,6 +125,24 @@ class  ReglementMockTest {
         psi.deleteProduit(pid);
         verify(pr).deleteById(pid);
         log.info("Deleted ==> " + pid.toString());
+    }
+   /* @Test
+    public void DeleteStockTest() {
+        sr.save(stock1);
+        is.deleteStock(stock1.getIdStock());
+        verify(sr, times(1)).deleteById(stock1.getIdStock());
+        System.out.println("Delete works !");
+
+    }
+
+
+    @Test
+    public void UpdateStockTest() {
+        when(sr.save(stock1)).thenReturn(stock1);
+        assertNotNull(stock1);
+        assertEquals(stock1, is.updateStock(stock1));
+        System.out.println("Update works !");
     }*/
+
 
 }

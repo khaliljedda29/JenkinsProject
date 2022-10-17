@@ -26,11 +26,22 @@ pipeline{
                  	}
                	 }
               }
-	     stage('Testing') {
-
-                          sh "./mvnw test"
-                          junit '*/target/surefire-reports/TEST-.xml'
+              	stage("Maven Build") {
+                          steps {
+                              script {
+                                  sh "mvn package -DskipTests=true"
+                              }
                           }
+                      }
+	      stage('test'){
+               steps {
+
+
+                sh "mvn clean test"
+
+           }
+
+           }
 
 }
 }
