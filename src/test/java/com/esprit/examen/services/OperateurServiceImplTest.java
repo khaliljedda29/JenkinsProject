@@ -21,7 +21,7 @@ public class OperateurServiceImplTest {
     public void testAddOperateur() {
         //	List<Stock> stocks = stockService.retrieveAllStocks();
         //	int expected=stocks.size();
-        Operateur s = new Operateur("test","test");
+        Operateur s = new Operateur("test","test","hedi");
         Operateur savedOperateur= operateurService.addOperateur(s);
 
         //	assertEquals(expected+1, stockService.retrieveAllStocks().size());
