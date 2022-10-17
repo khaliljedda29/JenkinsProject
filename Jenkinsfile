@@ -73,12 +73,7 @@ stage("Publish to Nexus Repository Manager") {
                          sh 'echo "Junit Test is processing ...."'
                          sh './mvnw test'
                       }
-                       post{
-                                 always{
-                                 sh 'make check || true'
-                                      junit '**/target/*.xml'
-                                 }
-                                 }
+
                     }
 		
         }
