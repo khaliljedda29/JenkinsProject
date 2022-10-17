@@ -9,10 +9,13 @@ pipeline{
         
         stages{
 
-                            stage('Junit Testing') {
+                            stage('Testing process') {
                               steps {
-                                 sh 'echo "Junit Test is processing ...."'
-                                 sh 'mvn clean test'
+                               script {
+                                sh 'echo "Test is processing ...."'
+                                sh 'mvn clean test'
+                               }
+
                               }
 
                             }
