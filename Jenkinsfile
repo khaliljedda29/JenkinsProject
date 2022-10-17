@@ -14,12 +14,7 @@ pipeline{
                                  sh 'echo "Junit Test is processing ...."'
                                  sh 'mvn test'
                               }
-                               post{
-                                 always{
-                                   sh 'make check || true'
-                                   junit '**/target/*.xml'
-                                 }
-                               }
+
                             }
 
               stage('Quality Gate Status Check'){
@@ -82,7 +77,12 @@ stage("Publish to Nexus Repository Manager") {
             }
         }
 
-		
+		 post{
+                                          always{
+                                            sh 'make check || true'
+                                            junit '**/target/*.xml'
+                                          }
+                                        }
         }
       }
 
