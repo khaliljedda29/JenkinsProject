@@ -80,20 +80,21 @@ pipeline{
             }
         }
 
- post {
-        success {
-             mail to: "youssef.skhiri@esprit.tn",
-                    subject: "Build sucess",
-                    body: "sucess"
-            echo 'successful'
+
         }
-        failure {
-             mail to: "youssef.skhiri@esprit.tn",
-                    subject: "Build failed",
-                    body: "failed"
-            echo 'failed'
-        }
-      }
-        }
+        post {
+                success {
+                     mail to: "youssef.skhiri@esprit.tn",
+                            subject: "Build sucess",
+                            body: "sucess"
+                    echo 'successful'
+                }
+                failure {
+                     mail to: "youssef.skhiri@esprit.tn",
+                            subject: "Build failed",
+                            body: "failed"
+                    echo 'failed'
+                }
+              }
         }
 
