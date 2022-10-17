@@ -9,13 +9,11 @@ pipeline{
         
         stages{
 
-                            stage('Junit Testing') {
-                              steps {
-                                 sh 'echo "Junit Test is processing ...."'
-                                 sh 'mvn clean test'
-                              }
-
-                            }
+                            stage('Test App') {
+                                          steps {
+                                            sh "mvn clean test"
+                                          }
+                                        }
 
               stage('Quality Gate Status Check'){
                   steps{
