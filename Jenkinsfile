@@ -59,7 +59,7 @@ stage("Publish to Nexus Repository Manager") {
                             protocol: 'http',
                             nexusUrl: '192.168.33.10:8081',
                             groupId: 'pom.com.esprit.examen',
-                            version: 'pom.1.0',
+                            version: 'pom.2.0',
                             repository: 'maven-releases',
                             credentialsId: 'nexus',
                             artifacts: [
