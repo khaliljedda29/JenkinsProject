@@ -9,17 +9,17 @@ pipeline{
         
         stages{
 
-        stage('Junit Testing') {
+                            stage('Junit Testing') {
                               steps {
                                  sh 'echo "Junit Test is processing ...."'
                                  sh './mvnw test'
                               }
                                post{
-                                         always{
-                                         sh 'make check || true'
-                                              junit '**/target/*.xml'
-                                         }
-                                         }
+                                 always{
+                                   sh 'make check || true'
+                                   junit '**/target/*.xml'
+                                 }
+                               }
                             }
 
               stage('Quality Gate Status Check'){
