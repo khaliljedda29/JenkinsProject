@@ -1,38 +1,89 @@
+pipeline {
+    agent any
+    
+    environment {
+        NEXUS_VERSION = "nexus3"
+        NEXUS_PROTOCOL = "http"
+        NEXUS_URL = "172.16.1.215:8081"
+        NEXUS_REPOSITORY = "maven-nexus-repo"
+        NEXUS_CREDENTIAL_ID = "nexus"
+    }
 
-pipeline{
+	
+    stages {
+        stage('Pull GIT') {
+            steps {
+                echo 'Pulling...';
+                  git branch: 'Backand_NF',
+                  url : 'https://github.com/rchouda/JenkinsProject.git',
+                
+            }
+        }
+        
+        stage('Maven Package') {
+            steps {
+                sh "chmod +x mvnw "
+                sh "./mvnw package"
+                
+            }
+        }
 
-      agent {
-                docker {
-                image 'maven:3-openjdk-11'
+  stage('Test') {
+            steps {
+                sh "./mvnw test"  
+           } 
+           
+        }
+        
+         
+        
+        stage('SonarQube analysis') {
+            steps {
+              withSonarQubeEnv (installationName:'sonar'){
+              sh """./mvnw sonar:sonar \ 
+   -Dsonar.projectKey=sonar \
+  -Dsonar.host.url=http://172.16.1.215:9000 \
+  -Dsonar.login=22d9f3d0e9ff3ac4b75ff30b2ef386319899db62 """ 
+    
+               
+       }
+    }   
+}
 
+stage("Publish to Nexus Repository Manager") {
+            steps {
+                script {
+                    pom = readMavenPom file: "pom.xml";
+                    filesByGlob = findFiles(glob: "target/*.${pom.packaging}");
+                    echo "${filesByGlob[0].name} ${filesByGlob[0].path} ${filesByGlob[0].directory} ${filesByGlob[0].length} ${filesByGlob[0].lastModified}"
+                    artifactPath = filesByGlob[0].path;
+                    artifactExists = fileExists artifactPath;
+                    if(artifactExists) {
+                        echo "* File: ${artifactPath}, group: ${pom.groupId}, packaging: ${pom.packaging}, version ${pom.version}";
+                        nexusArtifactUploader(
+                            nexusVersion: NEXUS_VERSION,
+                            protocol: NEXUS_PROTOCOL,
+                            nexusUrl: NEXUS_URL,
+                            groupId: pom.groupId,
+                            version: pom.version,
+                            repository: NEXUS_REPOSITORY,
+                            credentialsId: NEXUS_CREDENTIAL_ID,
+                            artifacts: [
+                                [artifactId: pom.artifactId,
+                                classifier: '',
+                                file: artifactPath,
+                                type: pom.packaging],
+                                [artifactId: pom.artifactId,
+                                classifier: '',
+                                file: "pom.xml",
+                                type: "pom"]
+                            ]
+                        );
+                    } else {
+                        error "* File: ${artifactPath}, could not be found";
+                    }
                 }
             }
-        
-        stages{
-        stage('Junit Testing') {
-              steps {
-                 sh 'echo "Junit Test is processing ...."'
-                sh 'mvn  test'
-
-              }
-            }
-              stage('Quality Gate Status Check'){
-                  steps{
-                      script{
-			      withSonarQubeEnv('sonarserver') { 
-			      sh "mvn compile sonar:sonar"
-                       	     	}
-			      timeout(time: 1, unit: 'HOURS') {
-			      def qg = waitForQualityGate()
-				      if (qg.status != 'OK') {
-					   error "Pipeline aborted due to quality gate failure: ${qg.status}"
-				      }
-                    		}
-		    	    sh "mvn clean install"
-		  
-                 	
-               	 }  
-              }
 }
-}
+    }   
 }
