@@ -26,11 +26,16 @@ pipeline{
                  	}
                	 }
               }
-	     stage('Testing') {
+	      stage('test'){
+               steps {
 
-                          sh "./mvnw test"
-                          junit '*/target/surefire-reports/TEST-.xml'
-                          }
+
+                                  sh "./mvnw test"
+                                  junit '*/target/surefire-reports/TEST-.xml'
+
+           }
+
+           }
 
 }
 }
