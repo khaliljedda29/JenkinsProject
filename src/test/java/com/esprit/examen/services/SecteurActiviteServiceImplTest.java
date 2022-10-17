@@ -46,7 +46,7 @@ public class SecteurActiviteServiceImplTest {
         SecteurActivite secteurActivite = new SecteurActivite("test", "test");
         Mockito.when(this.secteurActiviteRepository.save(Mockito.any())).thenReturn(secteurActivite);
         SecteurActivite savedSecteurActivite = secteurActiviteServicemock.addSecteurActivite(secteurActivite);
-        assertNotNull(savedSecteurActivite.getLibelleSecteurActivite());
+        assertNotNull(savedSecteurActivite.getLibelleSecteurActivite() );
     }
 
 
