@@ -1,4 +1,4 @@
-/*package com.esprit.examen.services;
+package com.esprit.examen.services;
 
 import com.esprit.examen.entities.Produit;
 import com.esprit.examen.repositories.ProduitRepository;
@@ -18,4 +18,4 @@ public class ProduitServiceImplTest {
         //Produit p= produitService.addProduit(Produit.builder().libelleProduit("produit test").codeProduit("produit test").prix(10).build());
         //assertNotNull(p);
     }
-}*/
+}
