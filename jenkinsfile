@@ -9,18 +9,11 @@ pipeline{
         
         stages{
 
-          stage('test'){
-                         steps {
-                            sh './mvnw test'
-
-                     }
-                     post{
-                     always{
-                     sh 'make check || true'
-                          junit '**/target/*.xml'
-                     }
-                     }
-                     }
+         stage('Test App') {
+              steps {
+                bat "mvn clean test"
+              }
+            }
 
 	     stage('Quality Gate Status Check'){
                   steps{
