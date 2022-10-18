@@ -1,9 +1,13 @@
 package com.esprit.examen.controllers;
 
-import java.util.Date;
+
 import java.util.List;
+
+import com.esprit.examen.entities.ProduitDto;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.esprit.examen.entities.Produit;
 import com.esprit.examen.services.IProduitService;
@@ -19,13 +23,14 @@ public class ProduitRestController {
 
 	@Autowired
 	IProduitService produitService;
+	@Autowired
+	private ModelMapper modelMapper;
 
 	// http://localhost:8089/SpringMVC/produit/retrieve-all-produits
 	@GetMapping("/retrieve-all-produits")
 	@ResponseBody
 	public List<Produit> getProduits() {
-		List<Produit> list = produitService.retrieveAllProduits();
-		return list;
+		return produitService.retrieveAllProduits();
 	}
 
 	// http://localhost:8089/SpringMVC/produit/retrieve-produit/8
@@ -39,12 +44,18 @@ public class ProduitRestController {
 	// http://localhost:8089/SpringMVC/produit/add-produit/{idCategorieProduit}/{idStock}
 	@PostMapping("/add-produit")
 	@ResponseBody
-	public Produit addProduit(@RequestBody Produit p) {
-		Produit produit = produitService.addProduit(p);
-		return produit;
+	public ResponseEntity<ProduitDto> addProduit(@RequestBody ProduitDto produitDto) {
+		var produitRequest = modelMapper.map(produitDto, Produit.class);
+
+		var produit = produitService.addProduit(produitRequest);
+
+		// convert entity to DTO
+		ProduitDto produitResponse = modelMapper.map(produit, ProduitDto.class);
+
+		return new ResponseEntity<>(produitResponse, HttpStatus.CREATED);
 	}
 
-	// http://localhost:8089/SpringMVC/produit/remove-produit/{produit-id}
+	//http://localhost:8089/SpringMVC/produit/remove-produit/{produit-id}
 	@DeleteMapping("/remove-produit/{produit-id}")
 	@ResponseBody
 	public void removeProduit(@PathVariable("produit-id") Long produitId) {
@@ -54,8 +65,15 @@ public class ProduitRestController {
 	// http://localhost:8089/SpringMVC/produit/modify-produit/{idCategorieProduit}/{idStock}
 	@PutMapping("/modify-produit")
 	@ResponseBody
-	public Produit modifyProduit(@RequestBody Produit p) {
-		return produitService.updateProduit(p);
+	public ResponseEntity<ProduitDto> updateProduit(@RequestBody ProduitDto produitDto) {
+		var produitRequest = modelMapper.map(produitDto, Produit.class);
+
+		var produit = produitService.updateProduit(produitRequest);
+
+		// entity to DTO
+		ProduitDto produitResponse = modelMapper.map(produit, ProduitDto.class);
+
+		return ResponseEntity.ok().body(produitResponse);
 	}
 
 	/*

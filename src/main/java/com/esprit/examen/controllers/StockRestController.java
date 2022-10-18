@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import com.esprit.examen.entities.Stock;
-
 import com.esprit.examen.services.IStockService;
 
 import io.swagger.annotations.Api;

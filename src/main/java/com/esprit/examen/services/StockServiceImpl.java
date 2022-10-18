@@ -54,7 +54,6 @@ public class StockServiceImpl implements IStockService {
 		return stock;
 	}
 
-
 	@Override
 	public String retrieveStatusStock() {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");

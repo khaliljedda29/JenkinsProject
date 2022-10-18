@@ -39,8 +39,13 @@ public class CategorieProduitServiceImpl implements ICategorieProduitService {
 
 	@Override
 	public CategorieProduit retrieveCategorieProduit(Long id) {
+<<<<<<< HEAD
 		CategorieProduit categorieProduit = categorieProduitRepository.findById(id).orElse(null);
 		return categorieProduit;
+=======
+
+		return categorieProduitRepository.findById(id).orElse(null);
+>>>>>>> 32936d41f6c1a696a8fdaddc19902865f748e16e
 	}
 
 }
