@@ -1,4 +1,4 @@
-package com.esprit.examen.services;
+/*package com.esprit.examen.services;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -118,6 +118,5 @@ class  FournisseurMockTest {
         psi.deleteProduit(pid);
         verify(pr).deleteById(pid);
         log.info("Deleted ==> " + pid.toString());
-    }*/
+  }  }*/
 
-}
