@@ -17,7 +17,7 @@ public class StockServiceImplTest {
 	
 	@Test
 	public void testAddStock() {
-	//	List<Stock> stocks = stockService.retrieveAllStocks();
+	//	List<Stock> stocks = stockService.retrieveAllStocks(); hello
 	//	int expected=stocks.size();
 		Stock s = new Stock("stock test",10,100);
 		Stock savedStock= stockService.addStock(s);
