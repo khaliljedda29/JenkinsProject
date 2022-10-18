@@ -14,8 +14,8 @@ pipeline {
         stage('Pull GIT') {
             steps {
                 echo 'Pulling...';
-                  git branch: 'Backand_NF',
-                  url : 'https://github.com/rchouda/JenkinsProject.git',
+                  git branch: 'feature-facture',
+                  url : 'https://github.com/rchouda/JenkinsProject.git';
                 
             }
         }
