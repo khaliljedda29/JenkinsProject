@@ -62,13 +62,32 @@ class  FournisseurMockTest {
         verify(pr).findById(Mockito.anyLong());
 
     }
-
-  /*  @DisplayName("Updating reglement...!")
     @Test
-    void EditReglementTest() {
-        Reglement pedit = new Reglement();
-        pedit.setIdReglement(3L);
-        pedit.setPayee(false);
+    public void addFournisseurTest(){
+        //Fournisseur p = new Fournisseur("code","farah",null,null,null,null);
+        Fournisseur savedProduit= psi.addFournisseur(p);
+        //	assertEquals(expected+1, stockService.retrieveAllStocks().size());
+        assertNotNull(savedProduit.getLibelle());
+        //stockService.deleteStock(savedStock.getIdStock());
+    }
+    @DisplayName("Adding Fournisseur...!")
+    @Test
+    void AddFournisseurTest() {
+        Fournisseur Fournisseur = new Fournisseur();
+        Fournisseur.setLibelle("Arctic");
+        Mockito.lenient().when(pr.save(Fournisseur)).thenReturn(Fournisseur);
+        Fournisseur newp = psi.addFournisseur(Fournisseur);
+        assertEquals(Fournisseur.getLibelle(), newp.getLibelle());
+        verify(pr).save(Fournisseur);
+        log.info("Added ==> " + Fournisseur.toString());
+        System.out.println("addddddddddddd fournnnnnnnnnnnnn");
+    }
+   /* @DisplayName("Updating Fournisseur...!")
+    @Test
+    void EditFournisseurTest() {
+        Fournisseur pedit = new Fournisseur();
+        pedit.setIdFournisseur(3L);
+        pedit.set(false);
         Reglement new_pedit = new Reglement();
         new_pedit.setPayee(true);
         Mockito.lenient().when(pr.findById(pedit.getIdReglement())).thenReturn(Optional.of(pedit));
@@ -76,8 +95,8 @@ class  FournisseurMockTest {
         pedit = psi.updateReglement(new_pedit);
         log.info("updated ==> " + pedit.toString());
         verify(pr).save(pedit);
-    }
-    @DisplayName("Adding reglement...!")
+    }*/
+  /*  @DisplayName("Adding reglement...!")
     @Test
     void AddProductTest() {
         Produit produit = new Produit();
