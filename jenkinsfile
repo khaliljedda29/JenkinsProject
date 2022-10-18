@@ -9,23 +9,16 @@ pipeline{
             }
         
         stages{
-        stage('Junit Testing') {
+        stage('Junit + Mock  Testing...') {
               steps {
-                 sh 'echo "Junit Test + Mock Test is processing ...."'
+                 sh 'echo "Test is processing ...."'
                 sh 'mvn  test'
 
               }
             }
-	 stage("Maven Build") {
-            steps {
-                script {
-		sh 'echo "Building jar .... ...."'
-                    sh "mvn package -DskipTests=true"
-                }
-            }
-        }
+
 	
-	   stage('Quality Gate Status Check'){
+	   stage('Quality Gate Status Checking ...'){
                   steps{
                       script{
 			      withSonarQubeEnv('sonarserver') { 
@@ -43,9 +36,18 @@ pipeline{
                	 }  
               }
 	      }
+	      
+	      	 stage("Maven Building ...") {
+            steps {
+                script {
+		sh 'echo "Building jar .... ...."'
+                    sh "mvn package -DskipTests=true"
+                }
+            }
+        }
 
 
- stage("Publish to Nexus Repository Manager") {
+ stage("Publish to Nexus Repository Manager ...") {
             steps {
 	 nexusArtifactUploader artifacts: [
 	 [artifactId: 'tpAchatProject',
@@ -61,7 +63,7 @@ pipeline{
 	 version: '1.0'   
 	    }
         }
-	        stage('E-mail Notification') {
+	        stage('E-mail Notification...') {
               steps {
 emailext attachLog: true, body: 'Hello, you will find below a Jenkins Build Log !', compressLog: true, subject: 'Response from Jenkins !', to: 'rached.bouyahi@esprit.tn'
 
