@@ -1,0 +1,72 @@
+
+pipeline{
+
+      agent {
+                docker {
+                image 'maven:3-openjdk-11'
+
+                }
+            }
+        
+        stages{
+        stage('Junit Testing') {
+              steps {
+                 sh 'echo "Junit Test + Mock Test is processing ...."'
+                sh 'mvn  test'
+
+              }
+            }
+	 stage("Maven Build") {
+            steps {
+                script {
+		sh 'echo "Building jar .... ...."'
+                    sh "mvn package -DskipTests=true"
+                }
+            }
+        }
+	
+	   stage('Quality Gate Status Check'){
+                  steps{
+                      script{
+			      withSonarQubeEnv('sonarserver') { 
+			      sh "mvn compile sonar:sonar"
+                       	     	}
+			      timeout(time: 1, unit: 'HOURS') {
+			      def qg = waitForQualityGate()
+				      if (qg.status != 'OK') {
+					   error "Pipeline aborted due to quality gate failure: ${qg.status}"
+				      }
+                    		}
+		    	    sh "mvn clean install"
+		  
+                 	
+               	 }  
+              }
+	      }
+
+
+ stage("Publish to Nexus Repository Manager") {
+            steps {
+	 nexusArtifactUploader artifacts: [
+	 [artifactId: 'tpAchatProject',
+	 classifier: '', file: 'target/tpAchatProject-1.0.jar',
+	 type: 'jar'
+	 ]], 
+	 credentialsId: 'NEXUS_CREDS',
+	 groupId: 'com.esprit.examen',
+	 nexusUrl: '192.168.1.120:8081',
+	 nexusVersion: 'nexus3',
+	 protocol: 'http',
+	 repository: 'maven-central-hosted',
+	 version: '1.0'   
+	    }
+        }
+	        stage('E-mail Notification') {
+              steps {
+emailext attachLog: true, body: 'Hello, you will find below a Jenkins Build Log !', compressLog: true, subject: 'Response from Jenkins !', to: 'rached.bouyahi@esprit.tn'
+
+              }
+            }
+
+}
+}
