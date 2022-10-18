@@ -1,4 +1,4 @@
-/*package com.esprit.examen.services;
+package com.esprit.examen.services;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -62,14 +62,7 @@ class  FournisseurMockTest {
         verify(pr).findById(Mockito.anyLong());
 
     }
-    @Test
-    public void addFournisseurTest(){
-        //Fournisseur p = new Fournisseur("code","farah",null,null,null,null);
-        Fournisseur savedProduit= psi.addFournisseur(p);
-        //	assertEquals(expected+1, stockService.retrieveAllStocks().size());
-        assertNotNull(savedProduit.getLibelle());
-        //stockService.deleteStock(savedStock.getIdStock());
-    }
+
     @DisplayName("Adding Fournisseur...!")
     @Test
     void AddFournisseurTest() {
@@ -82,6 +75,7 @@ class  FournisseurMockTest {
         log.info("Added ==> " + Fournisseur.toString());
         System.out.println("addddddddddddd fournnnnnnnnnnnnn");
     }
+}
    /* @DisplayName("Updating Fournisseur...!")
     @Test
     void EditFournisseurTest() {
