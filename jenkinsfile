@@ -57,7 +57,7 @@ pipeline{
                         nexusArtifactUploader(
                             nexusVersion: 'nexus3',
                             protocol: 'http',
-                            nexusUrl: '192.168.33.10:8081',
+                            nexusUrl: '192.168.2.25:8081',
                             groupId: 'pom.com.esprit.examen',
                             version: 'pom.2.0',
                             repository: 'maven-releases',
@@ -82,18 +82,5 @@ pipeline{
 
 
         }
-        post {
-                        success {
-                             mail to: "mohamedelhedi.benaissa@esprit.tn",
-                                    subject: "Build successfull",
-                                    body: "Hello Mohamed El Hedi, this is a Jenkins Pipeline alert for launching Cycle"
-                            echo 'successful'
-                        }
-                        failure {
-                             mail to: "mohamedelhedi.benaissa@esprit.tn",
-                                    subject: "Build failed",
-                                    body: "failed"
-                            echo 'failed'
-                        }
-                      }
+       
       }
