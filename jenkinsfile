@@ -9,7 +9,11 @@ pipeline{
         
         stages{
 
-                            stage('Testing process') {
+                stage('build image docker'){
+                sh 'docker build Dockerfile'
+                }
+
+                stage('Testing process') {
                               steps {
                                script {
                                 sh 'echo "Test is processing ...."'
