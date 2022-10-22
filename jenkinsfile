@@ -5,13 +5,16 @@ pipeline{
                 image 'maven:3-openjdk-11'
 
                 }
+                 def dockerImageTag = "springboot-deploy${env.BUILD_NUMBER}"
+
             }
         
         stages{
 
-                stage('build image docker'){
-                sh 'docker build Dockerfile'
-                }
+                    stage('Build docker') {
+                                 dockerImage = docker.build("springboot-deploy:${env.BUILD_NUMBER}")
+                    }
+
 
                 stage('Testing process') {
                               steps {
