@@ -1,9 +1,4 @@
-FROM maven:3.8-openjdk-11 as build
-WORKDIR /app
-COPY . .
-RUN mvn install
-
 FROM openjdk:11
 EXPOSE 8082
-ADD app.jar app.jar
-ENTRYPOINT ["java","-jar","/app.jar"]
+ADD target/devops-integration.jar devops-integration.jar
+ENTRYPOINT ["java","-jar","/devops-integration.jar"]

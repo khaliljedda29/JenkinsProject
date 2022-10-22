@@ -5,15 +5,24 @@ pipeline{
                 image 'maven:3-openjdk-11'
 
                 }
-                 def dockerImageTag = "springboot-deploy${env.BUILD_NUMBER}"
+
 
             }
         
         stages{
 
-                    stage('Build docker') {
-                                 dockerImage = docker.build("springboot-deploy:${env.BUILD_NUMBER}")
-                    }
+                  stage('Build Maven'){
+                             steps{
+                                sh 'mvn clean install'
+                             }
+                         }
+                         stage('Build docker image'){
+                             steps{
+                                 script{
+                                     sh 'docker build -t devops-integration .'
+                                 }
+                             }
+                         }
 
 
                 stage('Testing process') {
@@ -89,18 +98,5 @@ pipeline{
 
 
         }
-        post {
-                        success {
-                             mail to: "mohamedelhedi.benaissa@esprit.tn",
-                                    subject: "Build successfull",
-                                    body: "Hello Mohamed El Hedi, this is a Jenkins Pipeline alert for launching Cycle"
-                            echo 'successful'
-                        }
-                        failure {
-                             mail to: "mohamedelhedi.benaissa@esprit.tn",
-                                    subject: "Build failed",
-                                    body: "failed"
-                            echo 'failed'
-                        }
-                      }
+
       }
