@@ -25,21 +25,7 @@ agent any
                                  }
                              }
                          }
-		 stage('Docker login') {
-    	agent any
-      steps {
-        sh 'echo "login Docker ...."'
-      	sh 'docker login -u $DOCKERHUB_CREDENTIALS_USR -p $DOCKERHUB_CREDENTIALS_PSW'
-      }
-  }
-		 stage('Docker push') {
-    	agent any
-      steps {
-        sh 'echo "Docker is pushing ...."'
-      	sh 'docker push $DOCKERHUB_CREDENTIALS_USR/springprojet'
-      }
-  }
-    
+		
 
 
 
@@ -78,6 +64,14 @@ agent any
                 }
             }
         }
+		
+		  stage ('Artifact construction') {
+            steps {
+                sh 'echo "Artifact construction is processing ...."'
+                sh 'mvn  package' 
+            }
+		
+		
             stage("Publish to Nexus Repository Manager") {
             steps {
                 script {
@@ -113,6 +107,23 @@ agent any
                 }
             }
         }
+		
+		
+		 stage('Docker login') {
+    	agent any
+      steps {
+        sh 'echo "login Docker ...."'
+      	sh 'docker login -u $DOCKERHUB_CREDENTIALS_USR -p $DOCKERHUB_CREDENTIALS_PSW'
+      }
+  }
+		 stage('Docker push') {
+    	agent any
+      steps {
+        sh 'echo "Docker is pushing ...."'
+      	sh 'docker push $DOCKERHUB_CREDENTIALS_USR/springprojet'
+      }
+  }
+    
 
 
         }
