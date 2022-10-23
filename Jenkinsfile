@@ -13,7 +13,7 @@ agent any
 		
                  stage('docker compose'){
                             steps{
-                              //  script{
+                                script{
                                   sh 'docker-compose up -d'
                                  }
                             }
