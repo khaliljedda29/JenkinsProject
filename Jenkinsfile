@@ -16,6 +16,7 @@ agent any
                              steps{
                                 sh 'mvn clean install '
                                 sh 'ls target/'
+                                sh 'mv -f target/tpAchatProject.jar target/tpAchatProject-1.0.jar'
                              }
                          }
 			 stage('Build docker image'){
