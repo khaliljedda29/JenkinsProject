@@ -1,12 +1,12 @@
 
 pipeline{
 
-      agent {
-                docker {
-                image 'maven:3-openjdk-11'
+      agent any
+                tools {
+                maven 'maven:3-openjdk-11'
 
                 }
-            }
+            
 	     environment {
     DOCKERHUB_CREDENTIALS = credentials('rchouda911-dockerhub')
   }
