@@ -82,7 +82,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-					<finalName>tpAchatProject</finalName>
+					<finalName>springprojet</finalName>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -117,6 +117,7 @@
 			</plugin>
 
 		</plugins>
+		<finalName>springprojet</finalName>
 	</build>
 
 
