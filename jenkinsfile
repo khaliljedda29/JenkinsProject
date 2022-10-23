@@ -1,11 +1,10 @@
 
 pipeline{
-      agent {
-                docker {
-                image 'maven:3-openjdk-11'
-
-                }
-            }
+agent any
+  tools {
+     jdk 'JAVA_HOME'
+     maven 'M2_HOME'
+  }
         
 	     environment {
     DOCKERHUB_CREDENTIALS = credentials('rchouda911-dockerhub')
