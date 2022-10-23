@@ -49,18 +49,8 @@ pipeline{
 
  stage("Publish to Nexus Repository Manager ...") {
             steps {
-	 nexusArtifactUploader artifacts: [
-	 [artifactId: 'tpAchatProject',
-	 classifier: '', file: 'target/tpAchatProject-1.0.jar',
-	 type: 'jar'
-	 ]], 
-	 credentialsId: 'NEXUS_CREDS',
-	 groupId: 'com.esprit.examen',
-	 nexusUrl: '192.168.1.120:8081',
-	 nexusVersion: 'nexus3',
-	 protocol: 'http',
-	 repository: 'maven-central-hosted',
-	 version: '1.0'   
+   		sh 'echo "Publishing jar...."'
+
 	    }
         }
 	        stage('E-mail Notification...') {
@@ -71,4 +61,10 @@ emailext attachLog: true, body: 'Hello, you will find below a Jenkins Build Log 
             }
 
 }
+
+         stage("Docker Login"){
+        withCredentials([string(credentialsId: 'DOCKER_HUB_PASSWORD', variable: 'PASSWORD')]) {
+            sh 'docker login -u rchouda911 -p $PASSWORD'
+        }
+    } 
 }
