@@ -86,11 +86,11 @@ agent any
                         nexusArtifactUploader(
                             nexusVersion: 'nexus3',
                             protocol: 'http',
-                            nexusUrl: '192.168.33.10:8081',
+                            nexusUrl: '192.168.56.3:8081',
                             groupId: 'pom.com.esprit.examen',
                             version: 'pom.2.0',
                             repository: 'maven-releases',
-                            credentialsId: 'nexus',
+                            credentialsId: '2fd3467b-89cc-4b7a-ace8-756b02941c0f',
                             artifacts: [
                                 [artifactId: 'pom.tpAchatProject',
                                 classifier: '',
