@@ -25,6 +25,13 @@ agent any
                                  }
                              }
                          }
+		 stage('Docker login') {
+    	agent any
+      steps {
+        sh 'echo "login Docker ...."'
+      	sh 'docker login -u $DOCKERHUB_CREDENTIALS_USR -p $DOCKERHUB_CREDENTIALS_PSW'
+      }
+  }
 
 
                 stage('Testing process') {
