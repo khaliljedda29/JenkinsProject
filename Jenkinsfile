@@ -32,6 +32,15 @@ agent any
       	sh 'docker login -u $DOCKERHUB_CREDENTIALS_USR -p $DOCKERHUB_CREDENTIALS_PSW'
       }
   }
+		 stage('Docker push') {
+    	agent any
+      steps {
+        sh 'echo "Docker is pushing ...."'
+      	sh 'docker push $DOCKERHUB_CREDENTIALS_USR/springprojet'
+      }
+  }
+    
+}
 
 
                 stage('Testing process') {
