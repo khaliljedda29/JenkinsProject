@@ -7,6 +7,9 @@ pipeline{
 
                 }
             }
+	     environment {
+    DOCKERHUB_CREDENTIALS = credentials('rchouda911-dockerhub')
+  }
         
         stages{
         stage('Junit + Mock  Testing...') {
@@ -57,16 +60,23 @@ emailext attachLog: true, body: 'Hello, you will find below a Jenkins Build Log 
 
               }
             }
-	            stage('Login to Docker hub'){
-            steps{
-                script{
-                   withCredentials([string(credentialsId: 'DOCKER_HUB_PASSWORD', variable: 'PASSWORD')]) {
-                   sh 'docker login -u rchouda911 -p ${PASSWORD}'
+	    stage('Build') {
+      steps {
+        sh 'docker build -t rchouda911/springboot-k8s-deployment:1.0 .'
+      }
+    }
+    stage('Login') {
+      steps {
+        sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+      }
+    }
+    stage('Push') {
+      steps {
+        sh 'docker push rchouda911/springboot-k8s-deployment:1.0'
+      }
+    }
+  }
 
-}
-                }
-            }
-        }
 
 }
 }
