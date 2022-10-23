@@ -4,6 +4,10 @@ agent any
      jdk 'JAVA_HOME'
      maven 'M2_HOME'
   }
+	  environment {
+        
+        DOCKERHUB_CREDENTIALS = credentials('DockerHubID')
+    }
         
         stages{
 
@@ -17,7 +21,7 @@ agent any
 				 	agent any
                              steps{
                                  script{
-                                     sh 'docker build -t devops-integration .'
+                                     sh 'docker build -t $DOCKERHUB_CREDENTIALS_USR/springprojet .'
                                  }
                              }
                          }
