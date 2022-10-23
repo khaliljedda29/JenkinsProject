@@ -22,4 +22,5 @@ services:
     restart: always
     links:
       - mysql-docker
-    ports:
+   ports:
+      - 8082:8082
