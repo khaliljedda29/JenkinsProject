@@ -128,5 +128,19 @@ agent any
 
 
         }
+ post {
+                        success {
+                             mail to: "youssef.skhiri@esprit.tn",
+                                    subject: "Build successfull",
+                                    body: "Pipeline succeeded"
+                            echo 'successful'
+                        }
+                        failure {
+                             mail to: "youssef.skhiri@esprit.tn",
+                                    subject: "Build failure",
+                                    body: "Pipeline failed "
+                            echo 'failed'
+                        }
 
+        }
       }
