@@ -1,15 +1,35 @@
 pipeline{
-
-      agent {
-                docker {
-                image 'maven:3-openjdk-11'
-
-                }
-            }
+agent any
+  tools {
+     jdk 'JAVA_HOME'
+     maven 'M2_HOME'
+  }
+	  environment {
+        
+        DOCKERHUB_CREDENTIALS = credentials('DockerHubID')
+    }
         
         stages{
 
-                            stage('Testing process') {
+                         
+                  stage('Build Maven'){
+                             steps{
+                                sh 'mvn clean install '
+                             }
+                         }
+			 stage('Build docker image'){
+				 	agent any
+                             steps{
+                                 script{
+                                     sh 'docker build -t $DOCKERHUB_CREDENTIALS_USR/springprojet .'
+                                 }
+                             }
+                         }
+		
+
+
+
+                stage('Testing process') {
                               steps {
                                script {
                                 sh 'echo "Test is processing ...."'
@@ -23,7 +43,7 @@ pipeline{
               stage('Quality Gate Status Check'){
                   steps{
                       script{
-			      withSonarQubeEnv('sonar') { 
+			      withSonarQubeEnv('sonar') {
 			      sh "mvn compile sonar:sonar"
                        	     	}
 			      timeout(time: 1, unit: 'HOURS') {
@@ -33,9 +53,9 @@ pipeline{
 				      }
                     		}
 		    	    sh "mvn clean install"
-		  
+
                  	}
-               	 }  
+               	 }
               }
 		stage("Maven Build") {
             steps {
@@ -44,6 +64,15 @@ pipeline{
                 }
             }
         }
+		
+		  stage ('Artifact construction') {
+            steps {
+                sh 'echo "Artifact construction is processing ...."'
+                sh 'mvn  package' 
+            }
+		  }
+		
+		
             stage("Publish to Nexus Repository Manager") {
             steps {
                 script {
@@ -57,11 +86,11 @@ pipeline{
                         nexusArtifactUploader(
                             nexusVersion: 'nexus3',
                             protocol: 'http',
-                            nexusUrl: '192.168.1.27:8081',
+                            nexusUrl: '192.168.33.10:8081',
                             groupId: 'pom.com.esprit.examen',
-                            version: 'pom.1.0',
+                            version: 'pom.2.0',
                             repository: 'maven-releases',
-                            credentialsId: '2fd3467b-89cc-4b7a-ace8-756b02941c0f',
+                            credentialsId: 'nexus',
                             artifacts: [
                                 [artifactId: 'pom.tpAchatProject',
                                 classifier: '',
@@ -79,22 +108,25 @@ pipeline{
                 }
             }
         }
+		
+		
+		 stage('Docker login') {
+    	agent any
+      steps {
+        sh 'echo "login Docker ...."'
+      	sh 'docker login -u $DOCKERHUB_CREDENTIALS_USR -p $DOCKERHUB_CREDENTIALS_PSW'
+      }
+  }
+		 stage('Docker push') {
+    	agent any
+      steps {
+        sh 'echo "Docker is pushing ...."'
+      	sh 'docker push $DOCKERHUB_CREDENTIALS_USR/springprojet'
+      }
+  }
+    
 
 
         }
-        post {
-                success {
-                     mail to: "youssef.skhiri@esprit.tn",
-                            subject: "Build sucess",
-                            body: "sucess"
-                    echo 'successful'
-                }
-                failure {
-                     mail to: "youssef.skhiri@esprit.tn",
-                            subject: "Build failed",
-                            body: "failed"
-                    echo 'failed'
-                }
-              }
-        }
 
+      }
