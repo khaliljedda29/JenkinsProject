@@ -1,5 +1,5 @@
 FROM imagenarium/jdk-maven:17
 EXPOSE 8082
-COPY target/tpAchatProject-1.0.jar tpAchatProject-1.0.jar
+COPY target/tpAchatProject.jar tpAchatProject.jar
 ADD https://github.com/rchouda/JenkinsProject/tree/backend_YS/target .
-ENTRYPOINT ["java","-jar","tpAchatProject-1.0.jar"]
+ENTRYPOINT ["java","-jar","tpAchatProject.jar"]
