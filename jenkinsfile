@@ -17,20 +17,14 @@ agent any
                                 sh 'mvn clean install '
                              }
                          }
-                         stage('Build image spring jar'){
-                                                      steps{
-                                                          script{
-                                                             sh 'docker build .'
-                                                          }
-                                                      }
-						      }
-			    /*stage('Build docker image'){
+                        
+			    stage('Build docker image'){
                              steps{
                                  script{
                                     sh 'docker build -t $DOCKERHUB_CREDENTIALS_USR/springprojet .'
                                  }
                              }
-                         }*/
+                         }
 	
 
                 stage('Testing process') {
@@ -69,7 +63,7 @@ agent any
             }
         }
       
-		 /*		 stage('Docker login') {
+		 		 stage('Docker login') {
     	
                                          steps {
                                           sh 'echo "login Docker ...."'
@@ -80,7 +74,7 @@ agent any
                  steps {
                       sh 'echo "Docker is pushing ...."'
                      	sh 'docker push $DOCKERHUB_CREDENTIALS_USR/springprojet'
-                        }  }*/
+                        }  }
 
         }
 
