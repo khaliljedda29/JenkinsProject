@@ -1,9 +1,9 @@
 
 pipeline{
 
-      agent any
-                tools {
-                maven 'maven:3-openjdk-11'
+      agent 
+                docker {
+                images 'maven:3-openjdk-11'
 
                 }
             
