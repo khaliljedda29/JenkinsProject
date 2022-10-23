@@ -75,6 +75,11 @@ agent any
                       sh 'echo "Docker is pushing ...."'
                      	sh 'docker push $DOCKERHUB_CREDENTIALS_USR/springprojet'
                         }  }
+         stage('Docker compose') {
+
+                          steps {
+                               sh 'docker-compose up -d'
+                                 }  }
 
         }
 
