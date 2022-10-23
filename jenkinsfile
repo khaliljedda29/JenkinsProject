@@ -79,6 +79,3 @@ emailext attachLog: true, body: 'Hello, you will find below a Jenkins Build Log 
 
 
 }
-}
-
-
