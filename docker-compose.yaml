@@ -1,0 +1,25 @@
+version: '3.3'
+services:
+  mysql-docker:
+    container_name:
+      mysql2
+    image: amina112/springprojet:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: pass
+      MYSQL_DATABASE: tpachato
+      MYSQL_USER: root
+    ports:
+      - 3306
+    restart: always
+
+  app:
+    container_name:
+      friendly_dewdney
+    depends_on:
+      - mysql-docker
+    build:
+      context: .
+    restart: always
+    links:
+      - mysql-docker
+    ports:
