@@ -17,20 +17,9 @@ agent any
                                 sh 'mvn clean install '
                                 sh 'ls target/'
                                 sh 'mv -f target/tpAchatProject.jar target/tpAchatProject-1.0.jar'
+                                sh 'docker build -t $DOCKERHUB_CREDENTIALS_USR/springprojet .'
                              }
                          }
-			 stage('Build docker image'){
-				 	agent any
-                             steps{
-                                 script{
-                                     sh 'docker build -t $DOCKERHUB_CREDENTIALS_USR/springprojet .'
-                                 }
-                             }
-                         }
-		
-
-
-
                 stage('Testing process') {
                               steps {
                                script {
