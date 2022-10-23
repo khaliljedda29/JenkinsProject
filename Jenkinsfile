@@ -21,6 +21,7 @@ agent any
 				 	agent any
                              steps{
                                  script{
+                                     sh 'ls target/'
                                      sh 'docker build -t $DOCKERHUB_CREDENTIALS_USR/springprojet .'
                                  }
                              }
