@@ -1,15 +1,35 @@
 pipeline{
+agent any
+  tools {
+     jdk 'JAVA_HOME'
+     maven 'M2_HOME'
+  }
+	  environment {
 
-      agent {
-                docker {
-                image 'maven:3-openjdk-11'
+        DOCKERHUB_CREDENTIALS = credentials('DockerHubID')
+    }
 
-                }
-            }
-        
         stages{
 
-                            stage('Testing process') {
+
+                  stage('Build Maven'){
+                             steps{
+                                sh 'mvn clean install '
+                             }
+                         }
+			 stage('Build docker image'){
+				 	agent any
+                             steps{
+                                 script{
+                                     sh 'docker build -t $DOCKERHUB_CREDENTIALS_USR/springprojet .'
+                                 }
+                             }
+                         }
+
+
+
+
+                stage('Testing process') {
                               steps {
                                script {
                                 sh 'echo "Test is processing ...."'
@@ -37,13 +57,22 @@ pipeline{
                  	}
                	 }
               }
-		stage("Maven Build") {
+		 stage("Maven Build") {
             steps {
                 script {
                     sh "mvn package -DskipTests=true"
                 }
             }
-        }
+         }
+
+		  stage ('Artifact construction') {
+            steps {
+                sh 'echo "Artifact construction is processing ...."'
+                sh 'mvn  package'
+            }
+		  }
+
+
             stage("Publish to Nexus Repository Manager") {
             steps {
                 script {
@@ -78,11 +107,26 @@ pipeline{
                     }
                 }
             }
-        }
+         }
 
 
-        }
-        post {
+		  stage('Docker login') {
+    	 agent any
+          steps {
+           sh 'echo "login Docker ...."'
+      	   sh 'docker login -u $DOCKERHUB_CREDENTIALS_USR -p $DOCKERHUB_CREDENTIALS_PSW'
+             }
+          }
+		   stage('Docker push') {
+            	agent any
+           steps {
+            sh 'echo "Docker is pushing ...."'
+          	sh 'docker push $DOCKERHUB_CREDENTIALS_USR/springprojet'
+           }
+              }
+
+      }
+	  post {
                         success {
                              mail to: "mohamedelhedi.benaissa@esprit.tn",
                                     subject: "Build successfull",
@@ -95,5 +139,6 @@ pipeline{
                                     body: "failed"
                             echo 'failed'
                         }
-                      }
-      }
+
+        }
+}
