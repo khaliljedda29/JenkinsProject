@@ -1,4 +1,5 @@
-FROM openjdk:11
+FROM imagenarium/jdk-maven:17
 EXPOSE 8082
-ADD target/devops-integration.jar devops-integration.jar
-ENTRYPOINT ["java","-jar","/devops-integration.jar"]
+COPY target/tpAchatProject.jar tpAchatProject.jar
+ADD https://github.com/rchouda/JenkinsProject/tree/backend_HB/target .
+ENTRYPOINT ["java","-jar","tpAchatProject.jar"]
