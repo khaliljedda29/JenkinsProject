@@ -15,13 +15,13 @@ agent any
                   stage('Build Maven'){
                              steps{
                                 sh 'mvn clean install '
+                                sh 'ls target/'
                              }
                          }
 			 stage('Build docker image'){
 				 	agent any
                              steps{
                                  script{
-                                     sh 'ls target/'
                                      sh 'docker build -t $DOCKERHUB_CREDENTIALS_USR/springprojet .'
                                  }
                              }
