@@ -11,13 +11,13 @@ agent any
         
         stages{
 		
-                   stage('docker compose'){
-                             steps{
-                                 script{
-                                    sh 'docker-compose up -d'
-                                 }
-                             }
-                         }
+                 //  stage('docker compose'){
+                            // steps{
+                               //  script{
+                                  //  sh 'docker-compose up -d'
+                                // }
+                             //}
+                        // }
 
                          
                  stage('Build Maven Spring'){
