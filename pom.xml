@@ -16,6 +16,14 @@
 	<properties>
 		<java.version>11</java.version>
 		<maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
+		<configuration>
+			<archive>
+				<manifest>
+					<!-- give full qualified name of your main class-->
+					<mainClass>com.esprit.examen.TpAchatProjectApplication</mainClass>
+				</manifest>
+			</archive>
+		</configuration>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -78,21 +86,6 @@
 	</dependencies>
 	<build>
 		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<mainClass>com.places.Main</mainClass>
-				</configuration>
-
-				<executions>
-					<execution>
-						<goals>
-							<goal>repackage</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
