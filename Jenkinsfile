@@ -27,7 +27,7 @@ agent any
                          }
 
 
-                stage('Testing process') {
+                /*stage('Testing process') {
                               steps {
                                script {
                                 sh 'echo "Test is processing ...."'
@@ -36,9 +36,9 @@ agent any
 
                               }
 
-                            }
+                            }*/
 
-              stage('Quality Gate Status Check'){
+              /*stage('Quality Gate Status Check'){
                   steps{
                       script{
 			      withSonarQubeEnv('sonar') {
@@ -54,7 +54,7 @@ agent any
 
                  	}
                	 }
-              }
+              }*/
 		stage("Maven Build") {
             steps {
                 script {
