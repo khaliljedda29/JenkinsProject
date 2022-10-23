@@ -8,7 +8,7 @@ agent any
         stages{
 
                          
-                  stage('Build Maven'){
+             /*     stage('Build Maven'){
                              steps{
                                 sh 'mvn clean install '
                              }
@@ -19,7 +19,7 @@ agent any
                                      sh 'docker build -t devops-integration .'
                                  }
                              }
-                         }
+                         }*/
 
 
                 stage('Testing process') {
