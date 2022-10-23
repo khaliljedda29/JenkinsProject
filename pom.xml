@@ -73,32 +73,16 @@
 		<dependency>
 			<groupId>org.modelmapper</groupId>
 			<artifactId>modelmapper</artifactId>
-			<version>3.0.0</version>
+			<version>2.3.5</version>
 		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
 			<plugin>
-
-				<!-- Building an executable jar -->
-
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-				<version>3.1.1</version>
-				<configuration>
-					<archive>
-						<manifest>
-							<!-- give full qualified name of your main class-->
-							<mainClass>com.esprit.examen.TpAchatProjectApplication</mainClass>
-						</manifest>
-					</archive>
-				</configuration>
-			</plugin>
-			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-					<finalName>tpAchatProject</finalName>
+					<finalName>springprojet</finalName>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -133,6 +117,7 @@
 			</plugin>
 
 		</plugins>
+		<finalName>springprojet</finalName>
 	</build>
 
 
