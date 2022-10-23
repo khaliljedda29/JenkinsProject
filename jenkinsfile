@@ -17,7 +17,7 @@ agent any
                                 sh 'mvn clean install '
                              }
                          }
-                         stage('Build docker image spring jar'){
+                         stage('Build image spring jar'){
                                                       steps{
                                                           script{
                                                              sh 'docker build .'
