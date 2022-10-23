@@ -14,6 +14,7 @@ agent any
                              }
                          }
 			 stage('Build docker image'){
+				 	agent any
                              steps{
                                  script{
                                      sh 'docker build -t devops-integration .'
