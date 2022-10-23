@@ -13,7 +13,7 @@ services:
   app:
     depends_on:
       - mysqldb
-    build: ./springprojet
+    build: ./target/springprojet.jar
     restart: on-failure
     env_file: ./.env
     ports:
