@@ -1,4 +1,4 @@
-
+/*
 package com.esprit.examen.services;
 import com.esprit.examen.TpAchatProjectApplication;
 import com.esprit.examen.entities.Stock;
@@ -56,4 +56,4 @@ import java.util.List;
 }
 
 
-
+*/
