@@ -1,4 +1,4 @@
-FROM imagenarium/jdk-maven:17
+FROM openjdk:11
 EXPOSE 8082
-ADD https://github.com/rchouda/JenkinsProject/tree/backend_AK/target .
-ENTRYPOINT ["java","-jar","tpAchatProject-1.0.jar"]
+ADD target/springprojet.jar springprojet.jar
+ENTRYPOINT ["java","-jar","/springprojet.jar"]
