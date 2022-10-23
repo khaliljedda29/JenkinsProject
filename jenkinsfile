@@ -57,12 +57,18 @@ emailext attachLog: true, body: 'Hello, you will find below a Jenkins Build Log 
 
               }
             }
+	            stage('Login to Docker hub'){
+            steps{
+                script{
+                   withCredentials([string(credentialsId: 'DOCKER_HUB_PASSWORD', variable: 'PASSWORD')]) {
+                   sh 'docker login -u rchouda911 -p ${PASSWORD}'
+
+}
+                }
+            }
+        }
 
 }
 }
-         stage("Docker Login"){
-        withCredentials([string(credentialsId: 'DOCKER_HUB_PASSWORD', variable: 'PASSWORD')]) {
-            sh 'docker login -u rchouda911 -p '${PASSWORD}''
-        }
-    } 
+
 
