@@ -70,6 +70,7 @@ agent any
                 sh 'echo "Artifact construction is processing ...."'
                 sh 'mvn  package' 
             }
+		  }
 		
 		
             stage("Publish to Nexus Repository Manager") {
