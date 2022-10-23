@@ -1,4 +1,4 @@
-package com.esprit.examen.controllers;
+/*package com.esprit.examen.controllers;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -49,4 +49,4 @@ public class StockDTOTest {
         }
     }
 
-
+*/
