@@ -12,8 +12,6 @@ pipeline{
         stage('Junit + Mock  Testing...') {
               steps {
                  sh 'echo "Test is processing ...."'
-                sh 'mvn  test'
-
               }
             }
 
@@ -61,7 +59,7 @@ emailext attachLog: true, body: 'Hello, you will find below a Jenkins Build Log 
             }
 
 }
-
+}
          stage("Docker Login"){
         withCredentials([string(credentialsId: 'DOCKER_HUB_PASSWORD', variable: 'PASSWORD')]) {
             sh 'docker login -u rchouda911 -p $PASSWORD'
