@@ -1,4 +1,5 @@
 version: "3.8"
+
 services:
   mysqldb:
     image: mysql/mysql-server:8.0
@@ -29,5 +30,6 @@ services:
       - .m2:/root/.m2
     stdin_open: true
     tty: true
+    
 volumes:
   db:
