@@ -1,25 +1,37 @@
 pipeline{
-
-     agent any
+agent any
   tools {
-       jdk 'JAVA_HOME'
+     jdk 'JAVA_HOME'
      maven 'M2_HOME'
   }
+  	  environment {
+
+        DOCKERHUB_CREDENTIALS = credentials('DockerHubID')
+    }
+
         stages{
-	  stage('Build Maven'){
+
+                stage('docker compose'){
+                                            steps{
+                                               sh 'docker-compose up -d'
+                                            }
+                                        }
+            /*     stage('Build Maven Spring'){
                              steps{
                                 sh 'mvn clean install '
                              }
                          }
-			 stage('Build docker image'){
+
+			    stage('Build docker image'){
                              steps{
                                  script{
-                                     sh 'docker build -t devops-integration .'
+                                    sh 'docker build -t $DOCKERHUB_CREDENTIALS_USR/springprojet1 .'
                                  }
                              }
                          }
 
- stage('Testing process') {
+
+               stage('Testing process') {
                               steps {
                                script {
                                 sh 'echo "Test is processing ...."'
@@ -29,7 +41,8 @@ pipeline{
                               }
 
                             }
-              stage('Quality Gate Status Check'){
+
+             stage('Quality Gate Status Check'){
                   steps{
                       script{
 			      withSonarQubeEnv('sonar') {
@@ -41,15 +54,32 @@ pipeline{
 					   error "Pipeline aborted due to quality gate failure: ${qg.status}"
 				      }
                     		}
-
+		    	    sh "mvn clean install"
 
                  	}
                	 }
               }
+		stage("Maven Build") {
+            steps {
+                script {
+                    sh "mvn package -DskipTests=true"
+                }
+            }
+        }
 
+		 		 stage('Docker login') {
 
+                                         steps {
+                                          sh 'echo "login Docker ...."'
+                   	sh 'docker login -u $DOCKERHUB_CREDENTIALS_USR -p $DOCKERHUB_CREDENTIALS_PSW'
+                               }  }
+		 stage('Docker push') {
 
+                 steps {
+                      sh 'echo "Docker is pushing ...."'
+                     	sh 'docker push $DOCKERHUB_CREDENTIALS_USR/springprojet1'
+                        }  }*/
 
+        }
 
-}
-}
+      }
