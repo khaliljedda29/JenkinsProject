@@ -1,0 +1,10 @@
+com\esprit\examen\repositories\FactureRepository.class
+com\esprit\examen\entities\PostDto.class
+com\esprit\examen\SpringFoxSwaggerConfig.class
+com\esprit\examen\entities\Facture.class
+com\esprit\examen\services\IFactureService.class
+com\esprit\examen\entities\Facture$FactureBuilder.class
+com\esprit\examen\controllers\FactureRestController.class
+com\esprit\examen\TpAchatProjectApplication.class
+com\esprit\examen\controllers\StockDTO.class
+com\esprit\examen\services\FactureServiceImpl.class
