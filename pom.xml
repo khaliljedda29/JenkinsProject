@@ -130,7 +130,6 @@
         </archive>
       </configuration>
     </plugin>
-  </plugins>
 
 		</plugins>
 		<finalName>springprojet</finalName>
