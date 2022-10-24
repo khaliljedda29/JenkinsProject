@@ -24,6 +24,9 @@ agent any
                 script {
 		sh 'echo "Building jar .... ...."'
                     sh "mvn package -DskipTests=true"
+		    sh "mvn clean install"
+
+		    
                 }
             }
         }
