@@ -158,6 +158,6 @@
 </executions>
 </plugin>
 </plugins>
-<finalName>devops-integration</finalName>
+<finalName>app</finalName>
 </build>
 </project>
