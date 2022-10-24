@@ -10,23 +10,19 @@ agent any
     }
 
         stages{
-/*stage('Build Maven Spring'){
-                             steps{
-                                sh 'mvn clean install '
-                             }
-                         }
+
                stage('docker compose'){
                                             steps{
                                                sh 'docker-compose up -d'
                                             }
-                                        }*/
+                                        }
                stage('Build Maven Spring'){
                              steps{
                                 sh 'mvn clean install '
                              }
                          }
 
-			    stage('Build docker image'){
+			 /*   stage('Build docker image'){
                              steps{
                                  script{
                                     sh 'docker build -t $DOCKERHUB_CREDENTIALS_USR/springprojet1 .'
@@ -82,7 +78,7 @@ agent any
                  steps {
                       sh 'echo "Docker is pushing ...."'
                      	sh 'docker push $DOCKERHUB_CREDENTIALS_USR/springprojet1'
-                        }  }
+                        }  }*/
 
         }
 
