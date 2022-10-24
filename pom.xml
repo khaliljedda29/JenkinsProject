@@ -158,6 +158,6 @@
 </executions>
 </plugin>
 </plugins>
-<finalName>app</finalName>
+<finalName>tpAchatProject-1.0</finalName>
 </build>
 </project>
