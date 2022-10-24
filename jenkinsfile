@@ -11,18 +11,18 @@ agent any
         
         stages{
 
-                 stage('docker compose'){
+             /*    stage('docker compose'){
                                             steps{
                                                sh 'docker-compose up -d'
                                             }
-                                        }
-             /*    stage('Build Maven Spring'){
+                                        }*/
+                 stage('Build Maven Spring'){
                              steps{
                                 sh 'mvn clean install '
                              }
                          }
                         
-			    stage('Build docker image'){
+			 /*   stage('Build docker image'){
                              steps{
                                  script{
                                     sh 'docker build -t $DOCKERHUB_CREDENTIALS_USR/springprojet .'
