@@ -58,6 +58,13 @@ emailext attachLog: true, body: 'Hello, you will find below a Jenkins Build Log 
         sh 'docker push rchouda911/springboot-k8s-deployment:1.0'
       }
     } 
+    stage('Deploy to k8s'){
+            steps{
+                script{
+kubernetesDeploy configs: 'deployment.yml', kubeconfigId: 'k8sconfig' 
+                      }
+                 }
+                         }
   }
 
 
